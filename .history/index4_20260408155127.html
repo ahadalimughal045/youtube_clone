@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="ur" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MyTube - Home</title>
+  
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  
+  <style>
+    body {
+      background: #0f0f0f;
+      color: #fff;
+      font-family: 'Roboto', Arial, sans-serif;
+    }
+
+    /* Header - Exact YouTube Style */
+    .yt-header {
+      background: #0f0f0f;
+      border-bottom: 1px solid #303030;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      padding: 8px 16px;
+    }
+
+    .yt-logo {
+      font-size: 24px;
+      font-weight: bold;
+      color: #ff0000;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .yt-logo span {
+      color: white;
+    }
+
+    .search-bar {
+      max-width: 640px;
+      width: 100%;
+    }
+
+    .search-input {
+      background: #121212;
+      border: 1px solid #303030;
+      color: white;
+      border-radius: 40px 0 0 40px;
+      padding: 10px 20px;
+      width: 100%;
+    }
+
+    .search-btn {
+      background: #222;
+      border: 1px solid #303030;
+      border-left: none;
+      border-radius: 0 40px 40px 0;
+      padding: 0 28px;
+      color: #aaa;
+    }
+
+    .mic-btn {
+      margin-left: 10px;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #181818;
+      border: 1px solid #303030;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #aaa;
+    }
+
+    .header-right {
+      gap: 20px;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      position: fixed;
+      top: 70px;
+      left: 0;
+      width: 240px;
+      height: calc(100vh - 70px);
+      background: #0f0f0f;
+      border-right: 1px solid #303030;
+      overflow-y: auto;
+      padding-top: 10px;
+      z-index: 900;
+    }
+
+    .sidebar a {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      padding: 12px 24px;
+      color: #aaa;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    .sidebar a:hover,
+    .sidebar a.active {
+      background: #272727;
+      color: white;
+    }
+
+    /* Category Chips */
+    .category-bar {
+      position: fixed;
+      top: 70px;
+      left: 240px;
+      right: 0;
+      background: #0f0f0f;
+      border-bottom: 1px solid #303030;
+      padding: 12px 20px;
+      white-space: nowrap;
+      overflow-x: auto;
+      z-index: 800;
+    }
+
+    .category-chip {
+      display: inline-block;
+      background: #272727;
+      color: #fff;
+      padding: 6px 14px;
+      border-radius: 20px;
+      margin-right: 10px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .category-chip:hover,
+    .category-chip.active {
+      background: #fff;
+      color: black;
+    }
+
+    /* Main Content */
+    .main-content {
+      margin-top: 125px;
+      margin-left: 250px;
+      padding: 20px;
+    }
+
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+      gap: 24px;
+    }
+
+    .video-card {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .thumbnail {
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .thumbnail img {
+      width: 100%;
+      display: block;
+    }
+
+    .duration {
+      position: absolute;
+      bottom: 8px;
+      right: 8px;
+      background: rgba(0,0,0,0.85);
+      color: white;
+      font-size: 13px;
+      padding: 2px 6px;
+      border-radius: 3px;
+    }
+
+    .video-info {
+      display: flex;
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    .channel-img {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: #555;
+      flex-shrink: 0;
+    }
+
+    .video-title {
+      font-size: 15px;
+      line-height: 1.35;
+      font-weight: 500;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .channel-name, .views {
+      font-size: 13px;
+      color: #aaa;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==================== HEADER ==================== -->
+  <header class="yt-header d-flex align-items-center justify-content-between">
+    <div class="d-flex align-items-center gap-3">
+      <!-- Hamburger + Logo -->
+      <button class="btn text-white fs-4">☰</button>
+      <a href="index.html" class="yt-logo text-decoration-none">
+        <span>My</span>Tube
+      </a>
+    </div>
+
+    <!-- Search Bar -->
+    <div class="search-bar d-flex">
+      <input type="text" class="search-input form-control" placeholder="Search">
+      <button class="search-btn btn">🔍</button>
+      <button class="mic-btn">🎤</button>
+    </div>
+
+    <!-- Right Side Icons -->
+    <div class="header-right d-flex align-items-center">
+      <a href="video.html" class="text-white text-decoration-none">
+        <i class="fs-5">🎥</i>
+      </a>
+      <a href="#" class="text-white text-decoration-none">
+        <i class="fs-5">🛎️</i>
+      </a>
+      <div class="rounded-circle bg-secondary d-flex align-items-center justify-content-center" 
+           style="width: 32px; height: 32px; font-size: 18px;">
+        A
+      </div>
+    </div>
+  </header>
+
+  <!-- ==================== SIDEBAR ==================== -->
+  <div class="sidebar">
+    <a href="index.html" class="active">
+      🏠 <span>Home</span>
+    </a>
+    <a href="#">
+      🔥 <span>Trending</span>
+    </a>
+    <a href="#">
+      📺 <span>Subscriptions</span>
+    </a>
+    <hr style="border-color: #303030; margin: 8px 20px;">
+    <a href="#">
+      📚 <span>Library</span>
+    </a>
+    <a href="#">
+      🕒 <span>History</span>
+    </a>
+    <a href="#">
+      📝 <span>Your videos</span>
+    </a>
+    <a href="#">
+      ⏰ <span>Watch later</span>
+    </a>
+    <a href="#">
+      ❤️ <span>Liked videos</span>
+    </a>
+    <a href="#">
+      ⬇️ <span>Downloads</span>
+    </a>
+    <hr style="border-color: #303030; margin: 8px 20px;">
+    <a href="#">
+      <strong>Subscriptions</strong>
+    </a>
+    <a href="#">• MrBeast</a>
+    <a href="#">• Technical Guruji</a>
+    <a href="#">• CodeWithHarry</a>
+  </div>
+
+  <!-- ==================== CATEGORY BAR ==================== -->
+  <div class="category-bar">
+    <span class="category-chip active">All</span>
+    <span class="category-chip">Music</span>
+    <span class="category-chip">Mixes</span>
+    <span class="category-chip">Live</span>
+    <span class="category-chip">Gaming</span>
+    <span class="category-chip">Programming</span>
+    <span class="category-chip">Cricket</span>
+    <span class="category-chip">Comedy</span>
+    <span class="category-chip">Recently uploaded</span>
+    <span class="category-chip">Watched</span>
+  </div>
+
+  <!-- ==================== MAIN CONTENT ==================== -->
+  <div class="main-content">
+    <div class="video-grid">
+
+      <!-- Video Card 1 -->
+      <a href="video.html?id=dQw4w9wgxcq" class="video-card">
+        <div class="thumbnail">
+          <img src="https://img.youtube.com/vi/dQw4w9wgxcq/maxresdefault.jpg" alt="">
+          <div class="duration">3:33</div>
+        </div>
+        <div class="video-info">
+          <div class="channel-img"></div>
+          <div>
+            <h5 class="video-title">Rick Astley - Never Gonna Give You Up (Official Video)</h5>
+            <p class="channel-name">Rick Astley</p>
+            <p class="views">1.4B views • 15 years ago</p>
+          </div>
+        </div>
+      </a>
+
+      <!-- Video Card 2 -->
+      <a href="video.html?id=3JZ_3J4w4qQ" class="video-card">
+        <div class="thumbnail">
+          <img src="https://img.youtube.com/vi/3JZ_3J4w4qQ/maxresdefault.jpg" alt="">
+          <div class="duration">4:42</div>
+        </div>
+        <div class="video-info">
+          <div class="channel-img"></div>
+          <div>
+            <h5 class="video-title">Luis Fonsi - Despacito ft. Daddy Yankee</h5>
+            <p class="channel-name">LuisFonsiVEVO</p>
+            <p class="views">8.2B views • 7 years ago</p>
+          </div>
+        </div>
+      </a>
+
+      <!-- Video Card 3 -->
+      <a href="video.html?id=kXYiU_JCYtU" class="video-card">
+        <div class="thumbnail">
+          <img src="https://img.youtube.com/vi/kXYiU_JCYtU/maxresdefault.jpg" alt="">
+          <div class="duration">3:32</div>
+        </div>
+        <div class="video-info">
+          <div class="channel-img"></div>
+          <div>
+            <h5 class="video-title">Alan Walker - Faded</h5>
+            <p class="channel-name">Alan Walker</p>
+            <p class="views">5.1B views • 8 years ago</p>
+          </div>
+        </div>
+      </a>
+
+      <!-- Video Card 4 -->
+      <a href="video.html?id=JGwWNGJdvx8" class="video-card">
+        <div class="thumbnail">
+          <img src="https://img.youtube.com/vi/JGwWNGJdvx8/maxresdefault.jpg" alt="">
+          <div class="duration">4:23</div>
+        </div>
+        <div class="video-info">
+          <div class="channel-img"></div>
+          <div>
+            <h5 class="video-title">Ed Sheeran - Shape of You (Official Video)</h5>
+            <p class="channel-name">Ed Sheeran</p>
+            <p class="views">6.3B views • 7 years ago</p>
+          </div>
+        </div>
+      </a>
+
+    </div>
+  </div>
+
+</body>
+</html>

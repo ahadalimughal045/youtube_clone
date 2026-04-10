@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>YouTube</title>
+  
+  <!-- Font Awesome CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      font-family: 'Roboto', Arial, sans-serif;
+      background-color: #0f0f0f;
+      color: #fff;
+    }
+
+    /* Navbar */
+    .navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 20px;
+      background-color: #0f0f0f;
+      border-bottom: 1px solid #303030;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .left { display: flex; align-items: center; gap: 20px; }
+    .menu-icon { font-size: 24px; cursor: pointer; padding: 8px; border-radius: 50%; }
+    .menu-icon:hover { background-color: #272727; }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 22px;
+      font-weight: bold;
+      color: #ff0000;
+    }
+
+    .search-container {
+      flex: 1;
+      max-width: 640px;
+      margin: 0 40px;
+      display: flex;
+    }
+
+    .search-bar {
+      flex: 1;
+      padding: 12px 20px;
+      background: #121212;
+      border: 1px solid #303030;
+      color: #fff;
+      border-radius: 40px 0 0 40px;
+      font-size: 16px;
+      outline: none;
+    }
+
+    .search-btn {
+      padding: 12px 25px;
+      background: #272727;
+      border: 1px solid #303030;
+      border-left: none;
+      border-radius: 0 40px 40px 0;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    .right { display: flex; align-items: center; gap: 20px; font-size: 22px; }
+
+    /* Sidebar */
+    .sidebar {
+      position: fixed;
+      left: 0;
+      top: 60px;
+      width: 260px;
+      height: calc(100vh - 60px);
+      background-color: #0f0f0f;
+      border-right: 1px solid #303030;
+      overflow-y: auto;
+      transition: all 0.3s;
+      padding-bottom: 20px;
+    }
+
+    .sidebar-item {
+      display: flex;
+      align-items: center;
+      padding: 12px 24px;
+      cursor: pointer;
+      gap: 24px;
+      font-size: 14px;
+      color: #f1f1f1;
+    }
+
+    .sidebar-item:hover {
+      background-color: #272727;
+    }
+
+    .sidebar-item.active {
+      background-color: #272727;
+      font-weight: 500;
+    }
+
+    .sidebar hr {
+      border: none;
+      border-top: 1px solid #303030;
+      margin: 12px 0;
+    }
+
+    .section-title {
+      padding: 8px 24px 4px;
+      font-size: 13px;
+      color: #aaa;
+      font-weight: 500;
+    }
+
+    /* Main Content */
+    .main-content {
+      margin-left: 260px;
+      padding: 20px;
+      padding-top: 80px;
+      background-color: #0f0f0f;
+      min-height: 100vh;
+    }
+
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 24px;
+    }
+
+    .video-card {
+      cursor: pointer;
+    }
+
+    .thumbnail {
+      width: 100%;
+      height: 157px;
+      background-size: cover;
+      background-position: center;
+      border-radius: 12px;
+      position: relative;
+    }
+
+    .duration {
+      position: absolute;
+      bottom: 8px;
+      right: 8px;
+      background: rgba(0,0,0,0.85);
+      color: white;
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-size: 12px;
+    }
+
+    .video-info {
+      display: flex;
+      margin-top: 12px;
+      gap: 12px;
+    }
+
+    .channel-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background-size: cover;
+    }
+
+    .video-title {
+      font-size: 15px;
+      font-weight: 500;
+      line-height: 1.3;
+      margin-bottom: 6px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .channel-name, .video-meta {
+      font-size: 13px;
+      color: #aaaaaa;
+    }
+
+    /* Welcome */
+    #welcome {
+      background: #1f1f1f;
+      color: white;
+      padding: 10px 20px;
+      text-align: center;
+      position: sticky;
+      top: 60px;
+      z-index: 999;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="left">
+      <span class="menu-icon" id="menuBtn"><i class="fa-solid fa-bars"></i></span>
+      <div class="logo">
+        <i class="fa-brands fa-youtube" style="color:#ff0000; font-size:28px;"></i> 
+        YouTube
+      </div>
+    </div>
+
+    <div class="search-container">
+      <input type="text" class="search-bar" id="searchInput" placeholder="Search">
+      <button class="search-btn" id="searchBtn"><i class="fa-solid fa-magnifying-glass"></i></button>
+    </div>
+
+    <div class="right">
+      <i class="fa-solid fa-video"></i>
+      <i class="fa-solid fa-bell"></i>
+      <i class="fa-solid fa-user-circle" style="font-size:28px;"></i>
+    </div>
+  </nav>
+
+  <!-- Welcome -->
+  <div id="welcome">Welcome to YouTube, <strong id="userNameDisplay"></strong>!</div>
+
+  <!-- Sidebar -->
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-item active"><i class="fa-solid fa-house"></i> Home</div>
+    <div class="sidebar-item"><i class="fa-solid fa-bolt"></i> Shorts</div>
+    <div class="sidebar-item"><i class="fa-solid fa-play"></i> Subscriptions</div>
+    
+    <hr>
+    
+    <div class="sidebar-item"><i class="fa-solid fa-user"></i> You</div>
+    <div class="sidebar-item"><i class="fa-solid fa-clock-rotate-left"></i> History</div>
+    <div class="sidebar-item"><i class="fa-solid fa-list"></i> Playlists</div>
+    <div class="sidebar-item"><i class="fa-solid fa-clock"></i> Watch Later</div>
+    <div class="sidebar-item"><i class="fa-solid fa-thumbs-up"></i> Liked Videos</div>
+    <div class="sidebar-item"><i class="fa-solid fa-download"></i> Downloads</div>
+    
+    <hr>
+    
+    <div class="section-title">Explore</div>
+    <div class="sidebar-item"><i class="fa-solid fa-music"></i> Music</div>
+    <div class="sidebar-item"><i class="fa-solid fa-gamepad"></i> Gaming</div>
+    <div class="sidebar-item"><i class="fa-solid fa-newspaper"></i> News</div>
+    <div class="sidebar-item"><i class="fa-solid fa-trophy"></i> Sports</div>
+    <div class="sidebar-item" id="showMoreBtn"><i class="fa-solid fa-chevron-down"></i> Show more</div>
+    
+    <!-- Extra items (hidden by default) -->
+    <div class="extra-items" id="extraItems" style="display:none;">
+      <div class="sidebar-item"><i class="fa-solid fa-film"></i> Movies & Shows</div>
+      <div class="sidebar-item"><i class="fa-solid fa-lightbulb"></i> Learning</div>
+      <div class="sidebar-item"><i class="fa-solid fa-podcast"></i> Podcasts</div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <div class="video-grid" id="videoGrid">
+      <!-- Videos added by JS -->
+    </div>
+  </div>
+
+  <script>
+    // Variables
+    var userName = "";
+    let searchText = "";
+    const videos = [ /* same 10 videos as before */ 
+      { id: 1, title: "The Future of AI in 2026", channel: "Tech Insider", views: "1.2M views", time: "2 days ago", thumbnail: "https://picsum.photos/id/1015/320/180", duration: "12:45" },
+      { id: 2, title: "Building a YouTube Clone from Scratch", channel: "Web Dev Simplified", views: "892K views", time: "1 week ago", thumbnail: "https://picsum.photos/id/201/320/180", duration: "28:10" },
+      { id: 3, title: "Why You Should Learn JavaScript in 2026", channel: "freeCodeCamp", views: "2.1M views", time: "3 days ago", thumbnail: "https://picsum.photos/id/237/320/180", duration: "45:22" },
+      { id: 4, title: "Karachi Street Food Tour 2026", channel: "Food With Ahad", views: "456K views", time: "5 hours ago", thumbnail: "https://picsum.photos/id/870/320/180", duration: "18:33" },
+      { id: 5, title: "React vs Next.js - Which One Should You Choose?", channel: "Traversy Media", views: "678K views", time: "12 hours ago", thumbnail: "https://picsum.photos/id/180/320/180", duration: "35:15" },
+      { id: 6, title: "Elon Musk's Latest Interview (Full)", channel: "Lex Fridman", views: "3.4M views", time: "1 day ago", thumbnail: "https://picsum.photos/id/1018/320/180", duration: "1:42:10" },
+      { id: 7, title: "How I Made $10,000 with YouTube in 30 Days", channel: "MrBeast Gaming", views: "5.6M views", time: "4 days ago", thumbnail: "https://picsum.photos/id/201/320/180", duration: "22:50" },
+      { id: 8, title: "Pakistan vs India - Epic Cricket Highlights", channel: "PCB Official", views: "12M views", time: "2 hours ago", thumbnail: "https://picsum.photos/id/133/320/180", duration: "15:20" },
+      { id: 9, title: "CSS Grid vs Flexbox - When to Use What", channel: "Kevin Powell", views: "234K views", time: "6 days ago", thumbnail: "https://picsum.photos/id/201/320/180", duration: "19:45" },
+      { id: 10, title: "The Most Beautiful Places in Pakistan", channel: "Travel With Us", views: "789K views", time: "3 days ago", thumbnail: "https://picsum.photos/id/870/320/180", duration: "28:12" },
+    ];
+
+    let allVideos = [...videos, ...videos, ...videos.slice(0, 5)];
+
+    // Load user name
+    window.onload = function() {
+      userName = prompt("Enter your name:", "Ahad");
+      if (!userName || userName.trim() === "") userName = "Guest";
+
+      alert(`Welcome to YouTube, ${userName}! 🎉`);
+      document.getElementById("userNameDisplay").textContent = userName;
+
+      renderVideos();
+    };
+
+    function renderVideos(filteredVideos = allVideos) {
+      const videoGrid = document.getElementById("videoGrid");
+      videoGrid.innerHTML = "";
+
+      filteredVideos.forEach(video => {
+        const card = document.createElement("div");
+        card.className = "video-card";
+        card.innerHTML = `
+          <div class="thumbnail" style="background-image: url('${video.thumbnail}')">
+            <div class="duration">${video.duration}</div>
+          </div>
+          <div class="video-info">
+            <div class="channel-avatar" style="background-image: url('https://picsum.photos/id/${video.id + 50}/36/36')"></div>
+            <div class="video-details">
+              <div class="video-title">${video.title}</div>
+              <div class="channel-name">${video.channel}</div>
+              <div class="video-meta">${video.views} • ${video.time}</div>
+            </div>
+          </div>
+        `;
+
+        card.addEventListener("click", () => {
+          console.log(`Video clicked: ${video.title}`);
+          alert(`🎥 Now playing: ${video.title}`);
+        });
+
+        videoGrid.appendChild(card);
+      });
+    }
+
+    // Search
+    document.getElementById("searchBtn").addEventListener("click", () => {
+      const input = document.getElementById("searchInput").value.trim();
+      console.log(`Search: "${input}"`);
+      
+      if (!input) {
+        renderVideos(allVideos);
+        return;
+      }
+
+      const filtered = allVideos.filter(v => 
+        v.title.toLowerCase().includes(input.toLowerCase()) || 
+        v.channel.toLowerCase().includes(input.toLowerCase())
+      );
+      renderVideos(filtered);
+    });
+
+    // Sidebar Toggle
+    const menuBtn = document.getElementById("menuBtn");
+    const sidebar = document.getElementById("sidebar");
+    let isOpen = true;
+
+    menuBtn.addEventListener("click", () => {
+      isOpen = !isOpen;
+      sidebar.style.width = isOpen ? "260px" : "0";
+      console.log("Sidebar toggled");
+    });
+
+    // Show More in Sidebar
+    document.getElementById("showMoreBtn").addEventListener("click", () => {
+      const extra = document.getElementById("extraItems");
+      extra.style.display = extra.style.display === "none" ? "block" : "none";
+      console.log("Show more clicked");
+    });
+
+    console.log("YouTube Dark Clone loaded with Font Awesome icons!");
+  </script>
+</body>
+</html>

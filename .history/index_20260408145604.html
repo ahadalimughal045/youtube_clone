@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>YouTube UI Clone</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>YouTube Clone</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body {
+      background-color: #0f0f0f;
+      color: #fff;
+    }
+    .navbar {
+      background-color: #212121;
+      border-bottom: 1px solid #222;
+    }
+    .sidebar {
+      background-color: #212121;
+      min-height: 100vh;
+      width: 240px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1040;
+      transition: left 0.3s;
+    }
+    .sidebar.hide {
+      left: -260px;
+    }
+    .sidebar .nav-link {
+      color: #fff;
+      padding: 12px 24px;
+      border-radius: 8px;
+      margin-bottom: 2px;
+    }
+    .sidebar .nav-link.active, .sidebar .nav-link:hover {
+      background-color: #383838;
+    }
+    .sidebar .section-title {
+      color: #aaa;
+      font-size: 0.95rem;
+      margin: 18px 0 6px 24px;
+    }
+    .main-content {
+      margin-left: 240px;
+      transition: margin-left 0.3s;
+    }
+    .main-content.full {
+      margin-left: 0;
+    }
+    .category-bar {
+      background: #0f0f0f;
+      padding: 12px 0 8px 0;
+      overflow-x: auto;
+      white-space: nowrap;
+      border-bottom: 1px solid #222;
+    }
+    .category-btn {
+      display: inline-block;
+      background: #222;
+      color: #fff;
+      border: none;
+      border-radius: 18px;
+      padding: 6px 18px;
+      margin-right: 10px;
+      margin-bottom: 4px;
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .category-btn.active, .category-btn:hover {
+      background: #fff;
+      color: #000;
+    }
+    .video-card {
+      background-color: #181818;
+      border: none;
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 24px;
+      transition: box-shadow 0.2s;
+    }
+    .video-card:hover {
+      box-shadow: 0 4px 24px rgba(255,255,255,0.08);
+      cursor: pointer;
+    }
+    .video-thumb {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+    .video-title {
+      color: #fff;
+      font-size: 1rem;
+      font-weight: 500;
+      margin-bottom: 4px;
+    }
+    .video-channel {
+      color: #aaa;
+      font-size: 0.9rem;
+    }
+    .shorts-title {
+      color: #fff;
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin: 24px 0 12px 0;
+      display: flex;
+      align-items: center;
+    }
+    .shorts-title i {
+      color: #ff0000;
+      margin-right: 8px;
+    }
+    .shorts-row {
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+    .shorts-card {
+      display: inline-block;
+      width: 140px;
+      margin-right: 16px;
+      background: #181818;
+      border-radius: 12px;
+      overflow: hidden;
+      vertical-align: top;
+    }
+    .shorts-thumb {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+    }
+    @media (max-width: 991.98px) {
+      .sidebar {
+        left: -260px;
+      }
+      .sidebar.show {
+        left: 0;
+      }
+      .main-content {
+        margin-left: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Sidebar -->
+  <div class="sidebar hide" id="sidebar">
+    <nav class="nav flex-column pt-4">
+      <a class="nav-link active" href="#"><i class="fas fa-home me-2"></i>Home</a>
+      <a class="nav-link" href="#"><i class="fa-solid fa-bolt me-2"></i>Shorts</a>
+      <div class="section-title">Subscriptions</div>
+      <a class="nav-link" href="#"><img src="https://yt3.ggpht.com/ytc/AKedOLQ1.png" width="24" height="24" class="rounded-circle me-2">Codanics</a>
+      <a class="nav-link" href="#"><img src="https://yt3.ggpht.com/ytc/AKedOLQ2.png" width="24" height="24" class="rounded-circle me-2">CodeWithHarry</a>
+      <a class="nav-link" href="#"><img src="https://yt3.ggpht.com/ytc/AKedOLQ3.png" width="24" height="24" class="rounded-circle me-2">Learn Coding</a>
+      <a class="nav-link" href="#"><img src="https://yt3.ggpht.com/ytc/AKedOLQ4.png" width="24" height="24" class="rounded-circle me-2">Web Tech Talk</a>
+      <a class="nav-link" href="#"><img src="https://yt3.ggpht.com/ytc/AKedOLQ5.png" width="24" height="24" class="rounded-circle me-2">Neeraj Walia</a>
+      <a class="nav-link" href="#"><img src="https://yt3.ggpht.com/ytc/AKedOLQ6.png" width="24" height="24" class="rounded-circle me-2">Social Express</a>
+      <a class="nav-link" href="#"><img src="https://yt3.ggpht.com/ytc/AKedOLQ7.png" width="24" height="24" class="rounded-circle me-2">Mera Deen, Meri Pehchan</a>
+      <a class="nav-link" href="#"><i class="fa-solid fa-chevron-down me-2"></i>Show more</a>
+      <div class="section-title">You</div>
+      <a class="nav-link" href="#"><i class="fa-solid fa-clock-rotate-left me-2"></i>History</a>
+      <a class="nav-link" href="#"><i class="fa-solid fa-list me-2"></i>Playlists</a>
+      <a class="nav-link" href="#"><i class="fa-regular fa-clock me-2"></i>Watch later</a>
+    </nav>
+  </div>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+    <div class="container-fluid">
+      <button class="btn btn-dark me-2" id="menu-btn"><i class="fa-solid fa-bars"></i></button>
+      <a class="navbar-brand d-flex align-items-center" href="#">
+        <img src="https://www.youtube.com/s/desktop/6e6e6e6e/img/favicon_32x32.png" alt="YouTube" width="32" height="32" class="me-2">
+        <span style="font-weight: bold; color: #fff; font-size: 1.3rem;">YouTube</span>
+      </a>
+      <form class="d-flex mx-auto" style="max-width: 600px; width: 100%;">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-dark border" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+      </form>
+      <ul class="navbar-nav ms-auto d-flex flex-row align-items-center">
+        <li class="nav-item me-2">
+          <a class="nav-link" href="#"><i class="fa-solid fa-video"></i></a>
+        </li>
+        <li class="nav-item me-2">
+          <a class="nav-link" href="#"><i class="fa-regular fa-bell"></i></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#"><img src="https://randomuser.me/api/portraits/men/32.jpg" alt="User" class="rounded-circle" width="32" height="32"></a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Category Bar -->
+  <div class="category-bar px-3">
+    <button class="category-btn active">All</button>
+    <button class="category-btn">News</button>
+    <button class="category-btn">Music</button>
+    <button class="category-btn">Playlists</button>
+    <button class="category-btn">Web Development</button>
+    <button class="category-btn">APIs</button>
+    <button class="category-btn">AI-Mulk</button>
+    <button class="category-btn">Data Science</button>
+    <button class="category-btn">Gaming</button>
+    <button class="category-btn">Religious recitation</button>
+    <button class="category-btn">Reverberation</button>
+    <button class="category-btn">Comic books</button>
+    <button class="category-btn">Drama</button>
+    <button class="category-btn">Machine learning</button>
+    <button class="category-btn">Arabic Music</button>
+    <button class="category-btn">Dark Art</button>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-content" id="main-content">
+    <div class="container-fluid py-4">
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 g-4">
+        <!-- 100 Video Cards -->
+        <!-- Video cards will be injected by JS for brevity -->
+      </div>
+
+      <!-- Shorts Section -->
+      <div class="shorts-title mt-5"><i class="fa-solid fa-bolt"></i>Shorts</div>
+      <div class="shorts-row pb-4" id="shorts-row">
+        <!-- Shorts cards will be injected by JS for brevity -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS & FontAwesome -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+  <script>
+    // Sidebar toggle
+    const menuBtn = document.getElementById('menu-btn');
+    const sidebar = document.getElementById('sidebar');
+    const mainContent = document.getElementById('main-content');
+    menuBtn.addEventListener('click', () => {
+      sidebar.classList.toggle('hide');
+      sidebar.classList.toggle('show');
+      mainContent.classList.toggle('full');
+    });
+
+    // Generate 100 video cards
+    const videoData = Array.from({length: 100}, (_, i) => ({
+      title: `Sample Video Title ${i+1}`,
+      channel: `Channel ${((i%10)+1)}`,
+      views: `${(Math.random()*10).toFixed(1)}M views`,
+      time: `${Math.floor(Math.random()*10)+1} years ago`,
+      thumb: `https://picsum.photos/seed/video${i}/400/225`,
+      url: 'https://www.youtube.com/'
+    }));
+    const row = document.querySelector('.row.g-4');
+    videoData.forEach(v => {
+      row.innerHTML += `
+        <div class="col">
+          <div class="card video-card h-100" onclick="window.open('${v.url}','_blank')">
+            <img src="${v.thumb}" class="video-thumb" alt="Video Thumbnail">
+            <div class="card-body">
+              <div class="video-title">${v.title}</div>
+              <div class="video-channel">${v.channel} • ${v.views} • ${v.time}</div>
+            </div>
+          </div>
+        </div>
+      `;
+    });
+
+    // Generate 10 Shorts
+    const shortsRow = document.getElementById('shorts-row');
+    for(let i=1;i<=10;i++){
+      shortsRow.innerHTML += `
+        <div class="shorts-card">
+          <img src="https://picsum.photos/seed/shorts${i}/140/250" class="shorts-thumb" alt="Shorts Thumbnail">
+        </div>
+      `;
+    }
+  </script>
+</body>
+</html>
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    body {
+      background-color: #0f0f0f;
+      color: white;
+      overflow-x: hidden;
+    }
+
+    /* Navbar */
+    .navbar {
+      background-color: #0f0f0f !important;
+      border-bottom: 1px solid #222;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 220px;
+      height: 100vh;
+      position: fixed;
+      left: -220px;
+      top: 0;
+      background-color: #0f0f0f;
+      transition: 0.3s;
+      z-index: 1000;
+      border-right: 1px solid #222;
+    }
+
+    .sidebar.active {
+      left: 0;
+    }
+
+    .sidebar li {
+      padding: 12px 20px;
+    }
+
+    .sidebar li:hover {
+      background-color: #272727;
+      cursor: pointer;
+    }
+
+    /* Content */
+    .content {
+      width: 100%;
+      margin-left: 0;
+      transition: 0.3s;
+    }
+
+    .content.shift {
+      margin-left: 220px;
+    }
+
+    /* Cards */
+    .card {
+      border: none;
+      background-color: #181818;
+      border-radius: 10px;
+    }
+
+    .card img {
+      border-radius: 10px;
+    }
+
+    .text-muted {
+      color: #aaa !important;
+    }
+
+    /* Responsive fix */
+    @media (max-width: 768px) {
+      .content.shift {
+        margin-left: 0;
+      }
+    }
+
+  </style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-dark px-3 d-flex align-items-center">
+  <button class="btn btn-outline-light" id="menuBtn">☰</button>
+  <h5 class="ms-3 mb-0">YouTube</h5>
+</nav>
+
+<div class="d-flex">
+
+  <!-- SIDEBAR -->
+  <div id="sidebar" class="sidebar">
+    <ul class="list-unstyled mt-4">
+      <li>🏠 Home</li>
+      <li>🎬 Shorts</li>
+      <li>📺 Subscriptions</li>
+      <li>📚 Library</li>
+    </ul>
+  </div>
+
+  <!-- CONTENT -->
+  <div class="content p-3">
+
+    <div class="row g-3">
+
+      <!-- CARD -->
+      <div class="col-lg-4 col-md-6 col-12">
+        <div class="card text-white">
+          <img src="https://picsum.photos/400/200" class="card-img-top">
+          <div class="card-body">
+            <h6>Samay Raina - STILL ALIVE</h6>
+            <p class="small text-muted">9M views • 19 hours ago</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-6 col-12">
+        <div class="card text-white">
+          <img src="https://picsum.photos/401/200" class="card-img-top">
+          <div class="card-body">
+            <h6>University Tour Video</h6>
+            <p class="small text-muted">8K views • 1 year ago</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-6 col-12">
+        <div class="card text-white">
+          <img src="https://picsum.photos/402/200" class="card-img-top">
+          <div class="card-body">
+            <h6>Study Music for Focus</h6>
+            <p class="small text-muted">12M views • 6 years ago</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<script>
+  const menuBtn = document.getElementById("menuBtn");
+  const sidebar = document.getElementById("sidebar");
+  const content = document.querySelector(".content");
+
+  menuBtn.addEventListener("click", () => {
+    sidebar.classList.toggle("active");
+    content.classList.toggle("shift");
+  });
+</script>
+
+</body>
+</html>
