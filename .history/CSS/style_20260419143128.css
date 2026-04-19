@@ -1,0 +1,111 @@
+<style>
+    body {
+      background-color: #0f0f0f;
+      color: #f1f1f1;
+      font-family: 'Roboto', Arial, sans-serif;
+    }
+
+    .navbar {
+      background-color: #0f0f0f;
+      border-bottom: 1px solid #272727;
+      z-index: 1030;
+    }
+
+    .search-bar {
+      background: #121212;
+      border: 1px solid #303030;
+      color: #fff;
+      height: 42px;
+    }
+
+    .search-bar:focus {
+      border-color: #065fd4;
+      box-shadow: 0 0 0 2px rgba(6, 95, 212, 0.4);
+    }
+
+    .icon-btn {
+      width: 42px;
+      height: 42px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      border-radius: 50%;
+      transition: all 0.2s;
+    }
+
+    .icon-btn:hover {
+      background-color: #272727;
+    }
+
+    .logo-red { color: #ff0000; }
+
+    /* Category Chips */
+    .category-chips {
+      background-color: #0f0f0f;
+      border-bottom: 1px solid #272727;
+      padding: 12px 0;
+      position: sticky;
+      top: 56px;
+      z-index: 1020;
+      overflow-x: auto;
+      white-space: nowrap;
+      scrollbar-width: none;
+    }
+
+    .category-chip {
+      background-color: #272727;
+      color: #fff;
+      border: none;
+      padding: 6px 18px;
+      margin-right: 10px;
+      border-radius: 20px;
+      font-size: 14px;
+      transition: all 0.2s;
+    }
+
+    .category-chip:hover {
+      background-color: #3f3f3f;
+    }
+
+    .category-chip.active {
+      background-color: #fff;
+      color: #0f0f0f;
+      font-weight: 500;
+    }
+
+    .thumbnail {
+      height: 168px;
+      background-size: cover;
+      background-position: center;
+      border-radius: 12px;
+      position: relative;
+    }
+
+    .duration {
+      position: absolute;
+      bottom: 8px;
+      right: 8px;
+      background: rgba(0,0,0,0.85);
+      color: white;
+      font-size: 12px;
+      padding: 2px 6px;
+      border-radius: 3px;
+    }
+
+    .video-card:hover {
+      transform: translateY(-5px);
+      transition: 0.3s;
+    }
+
+    .offcanvas {
+      background-color: #0f0f0f;
+      color: #fff;
+      width: 260px !important;
+    }
+
+    .dropdown-menu {
+      background-color: #1f1f1f;
+      border: 1px solid #383838;
+    }
+  
